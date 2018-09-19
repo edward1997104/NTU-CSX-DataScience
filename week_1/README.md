@@ -2,12 +2,9 @@
 
 ### week_1
 
-- course_1
-    - practice_1.R
-    - practice_2.R
-    - practice_3.R
-- task_1_question
-    - hw_1_question.R
+- hw_1
+    - hw_1_basic.R
+    - hw_1_guess_number.R
     
 - week_1任務
     - 建立個人`Github帳號`
