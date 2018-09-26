@@ -15,7 +15,7 @@ GetBmi <- function (my.height.cm, my.weight.kg) {
   my.height.m <- my.height.cm / 100
   
   # Create my.bmi with BMI(Body Mass Index) formula
-  my.bmi <-  (my.weight.kg) / (my.height.m * my.height.m)
+  my.bmi <-  (my.weight.kg) / ((my.height.m) * (my.height.m))
   
   # Return my.bmi
   return (my.bmi)
@@ -29,22 +29,22 @@ CheckBmiLevel <- function (my.height.cm, my.weight.kg) {
   my.bmi <- GetBmi(my.height.cm, my.weight.kg)
   
   if (my.bmi >= 35) {
-    return(paste("Your bmi: ", my.bmi, ", é‡åº¦è‚¥èƒ–!"))
+    return(paste("Your bmi: ", my.bmi, ", ??åº¦?‚¥???!"))
   } else if (my.bmi >= 30) {
-    return(paste("Your bmi: ", my.bmi, ", ä¸­åº¦è‚¥èƒ–!"))
+    return(paste("Your bmi: ", my.bmi, ", ä¸­åº¦?‚¥???!"))
   } else if (my.bmi >= 27) {
-    return(paste("Your bmi: ", my.bmi, ", è¼•åº¦è‚¥èƒ–!"))
+    return(paste("Your bmi: ", my.bmi, ", è¼•åº¦?‚¥???!"))
   } else if (my.bmi >= 24) {
-    return(paste("Your bmi: ", my.bmi, ", éé‡!"))
+    return(paste("Your bmi: ", my.bmi, ", ??é??!"))
   } else if (my.bmi >= 18.5) {
-    return(paste("Your bmi: ", my.bmi, ", æ­£å¸¸ç¯„åœ"))
+    return(paste("Your bmi: ", my.bmi, ", æ­?å¸¸ç?„å??"))
   } else {
-    return(paste("Your bmi: ", my.bmi, ", éè¼•!"))
+    return(paste("Your bmi: ", my.bmi, ", ??è??!"))
   }  
 }
 
 bmi.level.msg <- CheckBmiLevel(176, 70) 
-bmi.level.msg # "Your bmi:  22.5981404958678 , æ­£å¸¸ç¯„åœ"
+bmi.level.msg # "Your bmi:  22.5981404958678 , æ­?å¸¸ç?„å??"
 
 ### function GetLargest ###################################################
 GetLargest <- function (vector) {
