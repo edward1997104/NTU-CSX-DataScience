@@ -1,0 +1,54 @@
+library(NLP)
+library(tm)
+library(tmcn)
+library(stats)
+library(proxy)
+library(dplyr)
+library(readtext)
+library(jiebaRD)
+library(jiebaR)
+library(slam)
+library(Matrix)
+library(tidytext)
+library(rJava)
+library(Rwordseg)
+
+Sys.setlocale(category="LC_ALL", locale = "en_US.UTF-8")
+rawData = readtext("poem/*.txt", encoding="UTF-8")
+docs <- Corpus(VectorSource(segmentCN(rawData$text)))
+
+
+# corpus to tdm
+d.corpus <- docs
+tdm <- TermDocumentMatrix(d.corpus)
+inspect(tdm)
+
+# query
+q = c("月", "不")
+insertWords(q)
+q.num = c(1,1)
+
+# tf-idf computation
+tf <- apply(tdm, 2, sum) # term frequency
+idf <- function(word_doc){ log2( (length(word_doc)+1) / nnzero(word_doc) ) }
+idf <- apply(tdm, 1, idf)
+doc.tfidf <- as.matrix(tdm)
+for(i in 1:nrow(tdm)){
+  for(j in 1:ncol(tdm)){
+    doc.tfidf[i,j] <- (doc.tfidf[i,j] / tf[j]) * idf[i]
+  }
+}
+doc.tfidf
+
+# get short doc matrix
+all.term <- rownames(doc.tfidf)
+loc <- which(all.term %in% q)
+s.tdm <- doc.tfidf[loc,]
+s.tdm
+
+# result : cos similarity ranking
+cos.sim <- function(x, y){ x%*%y / sqrt(x%*%x * y%*%y) }
+doc.cos <- apply(s.tdm, 2, cos.sim, y = q.num)
+doc.cos[order(doc.cos, decreasing = TRUE)]
+
+write.csv(doc.tfidf, "show.csv")
